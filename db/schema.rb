@@ -10,9 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_18_150554) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_18_155937) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "statistics", force: :cascade do |t|
+    t.bigint "url_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["url_id"], name: "index_statistics_on_url_id"
+  end
 
   create_table "urls", force: :cascade do |t|
     t.string "http_url"
@@ -21,4 +28,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_18_150554) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "statistics", "urls"
 end
