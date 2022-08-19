@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      # add url paths below
+      # add url endpoint paths
       resources :urls, only: [:index, :show, :create]
-      # add statistic urls
+      get "urls", to: "urls#index"
+      get "urls:/:id", to: "urls#show" 
+      post "urls", to: "urls#create"
+      post "urls/redirect", to: "urls#redirect"
+      # add statistic endpoint paths
       get "statistics", to: "statistics#index"
       get "statistics/:id", to: "statistics#show"
       post "statistics", to: "statistics#create" 

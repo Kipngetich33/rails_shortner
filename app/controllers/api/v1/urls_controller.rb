@@ -46,21 +46,21 @@ class Api::V1::UrlsController < ApplicationController
     end
   end
 
-  # def redirect
-  #   '''
-  #   Method that uses a given shortcode to get the original
-  #   url
-  #   '''
-  #   puts("*"*80)
-  #   puts("shorcode endpoint")
-  #   short_code = params[:short_code]
-  #   url = Url.find_by(short_code: short_code)
-  #   if url
-  #     return render json: {status: true, url: url.http_url}
-  #   else
-  #     return render json: {status: false, message: "Site not found."}
-  #   end
-  # end
+  def redirect
+    '''
+    Method that uses a given shortcode to get the original
+    url
+    '''
+    # use shorcoded to get the site
+    url = Url.find_by(short_code: params[:short_code])
+    # check if site exists
+    if url
+      return render json: {status: true, url: url.http_url}
+    else
+      return render json: {status: false, message: "Site not found."}
+    end
+    return render json: {status: false, message: "An error occured while retrievign site"}
+  end
 
   def generate_unique_key
     '''

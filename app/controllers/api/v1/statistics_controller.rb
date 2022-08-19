@@ -1,5 +1,6 @@
 class Api::V1::StatisticsController < ApplicationController
   def index
+    return render json: Statistic.all()
   end
 
   def show
