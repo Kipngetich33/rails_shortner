@@ -38,13 +38,29 @@ class Api::V1::UrlsController < ApplicationController
     Method that looks up a URL using its id and renders it else
     renders an error
     '''
-    url = Url.find_by(id: params[:id])
+    url = Url.find_by(short_code: params[:id])
     if url
       return render json: url, status: 200
     else 
       return render json: {error: "Url not found."}
     end
   end
+
+  # def redirect
+  #   '''
+  #   Method that uses a given shortcode to get the original
+  #   url
+  #   '''
+  #   puts("*"*80)
+  #   puts("shorcode endpoint")
+  #   short_code = params[:short_code]
+  #   url = Url.find_by(short_code: short_code)
+  #   if url
+  #     return render json: {status: true, url: url.http_url}
+  #   else
+  #     return render json: {status: false, message: "Site not found."}
+  #   end
+  # end
 
   def generate_unique_key
     '''
@@ -90,7 +106,6 @@ class Api::V1::UrlsController < ApplicationController
       '''
       params.require(:url).permit([
         :http_url, 
-        :short_code
       ])
     end
 
